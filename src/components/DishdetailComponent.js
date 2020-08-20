@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle } from 'reactstrap';
-
+//My
 class DishDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -36,7 +36,7 @@ class DishDetail extends React.Component {
 		            <ul className="list-unstyled">
 		              	<li className="list-item">{Actdish.comment}</li>
 		              	<br/>
-		               	<li className="list-item">-- {Actdish.author} ,{Actdish.date}</li>
+		               	<li className="list-item">-- {Actdish.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(Actdish.date)))}</li>
 		             </ul>	
 			);
 			});
@@ -56,10 +56,12 @@ class DishDetail extends React.Component {
 
   render() {
     return (
-    	<div className="row">
-      		{this.renderDish(this.props.selectedDish)}
-      		{this.renderComments(this.props.selectedDish)}
-      	</div>
+    	<div className="container">
+	    	<div className="row">
+	      		{this.renderDish(this.props.dish)}
+	      		{this.renderComments(this.props.dish)}
+	      	</div>
+	    </div>
     );
   }
 }
