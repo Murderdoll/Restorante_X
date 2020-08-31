@@ -5,11 +5,13 @@ import Menu from './MenuComponent';
 import DishDetail from './DishdetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
+import AboutUs from './AboutComponent';
 import {DISHES} from '../shared/dishes';
 import {COMMENTS} from '../shared/comments';
 import {LEADERS} from '../shared/leaders';
 import {PROMOTIONS} from '../shared/promotions';
 import { Switch, Route, Redirect} from 'react-router-dom';
+//My
 
 class Main extends Component {
 
@@ -50,6 +52,7 @@ class Main extends Component {
           <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
           <Route path="/menu/:dishId" component={DishWithId}/>
           <Route exact path="/contactus" component={Contact}/>
+          <Route exact path="/aboutus" component={() => <AboutUs leaders={this.state.leaders} />}/>
           <Redirect to="/home" />
         </Switch>
         <Footer />
