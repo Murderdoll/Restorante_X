@@ -6,7 +6,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 const minLength = (len) => (val) => (val) && (val.length >= len);
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 
-class ComponentForm extends Component {
+class CommentsForm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -23,8 +23,9 @@ class ComponentForm extends Component {
     }
 
     handleSubmit(values) {
-        console.log("Current State is: " + JSON.stringify(values));
-        alert("Current State is: " + JSON.stringify(values));
+        this.toggleModal();
+        this.props.addComment(this.props.dishId, values.rating, values.author, values.comment);
+        alert(values.author);
     }
 
 	render() {
@@ -51,10 +52,10 @@ class ComponentForm extends Component {
 		            	</Row>
 		            	<Row className="form-group">
 		            		<Col md={12}>
-		            			<Label htmlFor="yourname">Your Name</Label>
+		            			<Label htmlFor="author">Your Name</Label>
 		            		</Col>
 		            		<Col md={12}>
-		            			<Control.text model=".yourname" id="yourname" name="yourname"
+		            			<Control.text model=".author" id="author" name="author"
 	                                placeholder="Your Name"
 	                                className="form-control"
 	                                validators={{
@@ -113,7 +114,7 @@ class ComponentForm extends Component {
 		}
 	}
 
-	function RenderComments({comments}) {
+	function RenderComments({comments, addComment, dishId}) {
 
 		if(comments != null) {
 			const com = comments.map((Actdish) =>{
@@ -130,7 +131,7 @@ class ComponentForm extends Component {
 				<div className="col-12 col-md-5 m-1">
 					<h4>Comments</h4>
 					{com}
-					<ComponentForm />
+					<CommentsForm dishId={dishId} addComment={addComment}/>
 				</div>
 			);
 		}
@@ -157,7 +158,10 @@ class ComponentForm extends Component {
 			</div>
 	    	<div className="row">
 	      		<RenderDish dish={props.dish} />
-	      		<RenderComments comments={props.comments} />
+	      		<RenderComments comments={props.comments} 
+                    addComment={props.addComment}
+                    dishId={props.dish.id}
+                />
 	      	</div>
 	    </div>
     );
